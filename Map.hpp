@@ -6,12 +6,12 @@
 /*   By: rcheiko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:29:26 by rcheiko           #+#    #+#             */
-/*   Updated: 2021/11/09 16:37:03 by rcheiko          ###   ########.fr       */
+/*   Updated: 2021/12/07 15:58:54 by rcheiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
-# define MAP_HPP
+# define 
 # include <iostream>
 # include <string>
 # include <vector>
