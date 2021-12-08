@@ -6,7 +6,7 @@
 /*   By: rcheiko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:34:50 by rcheiko           #+#    #+#             */
-/*   Updated: 2021/12/07 14:56:42 by rcheiko          ###   ########.fr       */
+/*   Updated: 2021/12/08 13:57:59 by rcheiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@
 int main( void )
 {
 	vector<int> first;
-	vector<int> second = first;
-	vector<int> third = (second);
-	vector<int> fourth (4, 100);
+	first.push_back(5);
+	first.push_back(6);
+	first.push_back(7);
+	first.push_back(8);
+	first.print();
+//	vector<int> second = first;
+//	vector<int> third = (second);
+//	vector<int> fourth (4, 100);
 	return (0);
 }

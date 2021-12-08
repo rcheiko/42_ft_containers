@@ -6,7 +6,7 @@
 /*   By: rcheiko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:29:26 by rcheiko           #+#    #+#             */
-/*   Updated: 2021/12/07 15:45:24 by rcheiko          ###   ########.fr       */
+/*   Updated: 2021/12/08 13:58:08 by rcheiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,30 @@ template <typename T, typename _allocator = std::allocator<T> >
 class vector : public std::allocator<T>
 {
 	private:
-		size_t		_size;
+		size_t		_size_alloc;
+		size_t		_size_value;
 		_allocator	_alloc;
-		T			_value;
+		T			*_value;
+
+		T	*realloc()
+		{
+			T	*new_value = NULL;
+			if (_size_value == _size_alloc)
+			{
+				new_value = _alloc.allocate(_size_value + 1);
+				for (size_t i = 0; i < _size_value; i++)
+				{
+					new_value[i] = _value[i];
+					_alloc.destroy(_value + i);
+				}
+				_alloc.deallocate(_value, _size_value);
+				_value = new_value;
+				_size_alloc = _size_value + 1;
+			}
+			return (new_value);
+			
+		}
+
 	public:
 		typedef T								value_type;
 		typedef T								&reference;
@@ -41,10 +62,11 @@ class vector : public std::allocator<T>
 		typedef std::reverse_iterator<std::const_iterator>	const_reverse_iterator;*/
 
 
-		explicit vector (const allocator_type& alloc = _allocator()) : _alloc(alloc){}
+		explicit vector (const allocator_type& alloc = _allocator()) : _size_alloc(0), _size_value(0), _alloc(alloc){}
 
+		//ce constructeur est faux
 		explicit vector (size_type n, const value_type& val = value_type(),
-						const allocator_type& alloc = allocator_type()) : _size(n), _alloc(alloc), _value(val) {}
+						const allocator_type& alloc = allocator_type()) : _size_alloc(n), _size_value(n), _alloc(alloc), _value(val) {}
 //		template <class InputIterator> vector (InputIterator first, InputIterator last,
 //						const allocator_type& alloc = allocator_type()) {}
 		~vector() {}
@@ -53,14 +75,15 @@ class vector : public std::allocator<T>
 			*this = x;
 		}
 		vector &	operator=( vector const & copy){
-			_size = copy._size;
+			_size_alloc = copy._size_alloc;
+			_size_value = copy._size_value;
 			_alloc = copy._alloc;
 			_value = copy._value;
 			return (*this);
 		}
 
 		size_type size() const{
-			return (_size);
+			return (_size_value);
 		}
 
 		size_type max_size() const{
@@ -68,9 +91,33 @@ class vector : public std::allocator<T>
 		}
 
 		bool empty() const{
-			if (_size == 0)
+			if (_size_value == 0)
 				return (true);
 			return (false);
+		}
+
+		void push_back(const value_type& val)
+		{
+			if (_size_alloc == 0)
+			{
+				_value = _alloc.allocate(1);
+				_size_alloc++;
+			}
+			if (_size_value == _size_alloc)
+			{
+				realloc();
+			}
+			_alloc.construct(_value + _size_value, val);
+			_size_value++;
+		}
+		void	print()
+		{
+			size_t	i = 0;
+			while (i < _size_value)
+			{
+				std::cout << _value[i] << std::endl;
+				i++;
+			}
 		}
 
 
