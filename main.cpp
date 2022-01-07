@@ -6,7 +6,7 @@
 /*   By: rcheiko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:34:50 by rcheiko           #+#    #+#             */
-/*   Updated: 2021/12/08 13:57:59 by rcheiko          ###   ########.fr       */
+/*   Updated: 2022/01/07 14:38:43 by rcheiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,24 @@
 
 int main( void )
 {
-	vector<int> first;
-	first.push_back(5);
-	first.push_back(6);
-	first.push_back(7);
-	first.push_back(8);
+	ft::vector<int> first(5,3);
+	ft::vector<int> second(10,1);
+	for (int i = 0; i < 10; i++)
+	{
+		first.push_back(i);
+	}
+
+	//std::cout << first.max_size() << std::endl;
+	//std::cout << first[4] << std::endl;
+	//first.pop_back();
+	//first.resize(16, 1);
+	//first.reserve(50);
+	//std::cout << "CAPACITY " << first.capacity() << std::endl;
+	//first.clear();
+	//first.swap(second);
+	//std::cout << first.at(2) << std::endl;
 	first.print();
-//	vector<int> second = first;
-//	vector<int> third = (second);
-//	vector<int> fourth (4, 100);
+	std::cout << "\n\n";
+	second.print();
 	return (0);
 }
